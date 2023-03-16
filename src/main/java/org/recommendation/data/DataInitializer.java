@@ -8,7 +8,7 @@ import java.io.FileReader;
 import java.util.Map;
 
 public abstract class DataInitializer {
-    public BufferedReader dataReader(String fileName) {
+    public BufferedReader dataReader(final String fileName) {
         try {
             File file = new File(fileName);
             BufferedReader br = new BufferedReader(new FileReader(file));
@@ -19,7 +19,7 @@ public abstract class DataInitializer {
         return null;
     }
 
-    abstract public Map<String, String[]> readAndCleanData(BufferedReader br);
+    abstract public Map<String, String[]> readAndCleanData(final BufferedReader br);
 
-    abstract public void writeData(XSSFWorkbook workbook, Map<String, String[]> dataStore);
+    abstract public void writeData(final XSSFWorkbook workbook, final Map<String, String[]> dataStore);
 }

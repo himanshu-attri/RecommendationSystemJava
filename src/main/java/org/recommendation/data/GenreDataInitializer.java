@@ -11,7 +11,7 @@ public class GenreDataInitializer extends DataInitializer{
     public static final String genreFilePath = "src/main/java/org/recommendation/data/raw/genre.csv";
     public static HashMap<String,String>GenereMap = new HashMap<>();
     @Override
-    public Map<String, String[]> readAndCleanData(BufferedReader br) {
+    public Map<String, String[]> readAndCleanData(final BufferedReader br) {
         String line;
         try {
             while ((line = br.readLine()) != null){
@@ -27,7 +27,7 @@ public class GenreDataInitializer extends DataInitializer{
     }
 
     @Override
-    public void writeData(XSSFWorkbook workbook, Map<String, String[]> dataStore) {
+    public void writeData(final XSSFWorkbook workbook, final Map<String, String[]> dataStore) {
 
     }
 }

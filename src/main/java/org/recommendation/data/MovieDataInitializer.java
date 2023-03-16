@@ -17,7 +17,7 @@ public class MovieDataInitializer extends DataInitializer{
     public static final String movieFilePath = "src/main/java/org/recommendation/data/raw/movie.csv";
 
     @Override
-    public Map<String, String[]> readAndCleanData(BufferedReader br) {
+    public Map<String, String[]> readAndCleanData(final BufferedReader br) {
         Map<String,String[]> dataStore = new TreeMap<>();
         String line;
         try {
@@ -55,7 +55,7 @@ public class MovieDataInitializer extends DataInitializer{
         }
         return dataStore;
     }
-    private void populateMovieData(String [] filteredData){
+    private void populateMovieData(final String [] filteredData){
         if(filteredData.length<5){
             System.out.println("Insufficient data to map, skipping this row "+ filteredData[0]);
             return;
@@ -73,7 +73,7 @@ public class MovieDataInitializer extends DataInitializer{
     }
 
     @Override
-    public void writeData(XSSFWorkbook workbook, Map<String, String[]> dataStore) {
+    public void writeData(final XSSFWorkbook workbook, final Map<String, String[]> dataStore) {
         int rownum = 0;
         XSSFSheet sheet = workbook.createSheet("movie");
         for (String key:dataStore.keySet()){

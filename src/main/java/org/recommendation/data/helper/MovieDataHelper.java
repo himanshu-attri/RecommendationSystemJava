@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class MovieDataHelper {
     public static HashMap<String, Movie> movieMap = new HashMap<>();
-    public static ArrayList<Movie> filterBy(Filter f) {
+    public static ArrayList<Movie> filterBy(final Filter f) {
         ArrayList<Movie> list = new ArrayList<Movie>();
         for (String movieId : movieMap.keySet()) {
             if (f.satisfy(movieId)) {

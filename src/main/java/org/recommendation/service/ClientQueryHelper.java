@@ -13,7 +13,7 @@ public class ClientQueryHelper {
     private ArrayList<Movie> queryReelatedMovies =  new ArrayList<>();
     private HashMap<String, Double> movieScore =  new HashMap<>();
     private HashMap<String, Integer> movieRaters =  new HashMap<>();
-    public Movie getTopMovieByGenre(String genre){
+    public Movie getTopMovieByGenre(final String genre){
         for(String key: movieMap.keySet()){
             if(checkGenre(genre,movieMap.get(key))){
                 queryReelatedMovies.add(movieMap.get(key));
@@ -27,7 +27,7 @@ public class ClientQueryHelper {
         System.out.println("Max Rate movie is: "+ maxRatedMovie.getId()+" "+ maxRatedMovie.getTitle()+" "+ maxRatedMovie.getGenres());
         return maxRatedMovie;
     }
-    public Movie getTopRatedMovieByYear(String year){
+    public Movie getTopRatedMovieByYear(final String year){
         for(String key: movieMap.keySet()){
             if(checkYear(year,movieMap.get(key))){
                 queryReelatedMovies.add(movieMap.get(key));
@@ -57,10 +57,10 @@ public class ClientQueryHelper {
        return movieMap.get(maxRatedMovieId);
 
     }
-    boolean checkGenre(String genre, Movie movie){
+    boolean checkGenre(final String genre, final Movie movie){
         return movie.getGenres().contains(genre);
     }
-    boolean checkYear(String year, Movie movie){
+    boolean checkYear(final String year, final Movie movie){
         return movie.getYear().equals(year);
     }
 }

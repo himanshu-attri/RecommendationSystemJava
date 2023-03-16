@@ -5,18 +5,14 @@ import java.util.HashMap;
 
 import static java.util.stream.Collectors.toCollection;
 
-public class User {
-    private String userId;
+public class User extends BaseModel{
     private HashMap<String, Rating> movieMap; // it will store all movies rate by user with along with rating
-    public String getUserId() {
-        return userId;
-    }
-    public User(String userId){
-        this.userId = userId;
+    public User(final String userId){
+        super(userId);
         movieMap = new HashMap<>();
     }
-    public void addRating(String movieId,double rating){
-        movieMap.put(movieId, new Rating(this.userId,movieId, rating));
+    public void addRating(final String movieId,final double rating){
+        movieMap.put(movieId, new Rating(super.getUserId(),movieId, rating));
     }
     public ArrayList<String> getMoviesRated(){
         return movieMap.keySet().stream().collect(toCollection(ArrayList::new));
@@ -37,7 +33,7 @@ public class User {
         return 0.0;
     }
     // this method will be used inside recommendation algorithm to get individual rating of a movie by user
-    public double getMovieRatingForUser(String movieId){
+    public double getMovieRatingForUser(final String movieId){
         if (movieMap.containsKey(movieId)){
             return movieMap.get(movieId).getRatingValue();
         }

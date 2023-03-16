@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class UnWatchedMovieFilter implements Filter{
     private ArrayList<String> watched;
     @Override
-    public boolean satisfy(String movieId) {
+    public boolean satisfy(final String movieId) {
         for (String movie : watched) {
             if (movie.equals(movieId)) {
                 return false;
@@ -17,7 +17,7 @@ public class UnWatchedMovieFilter implements Filter{
         return true;
     }
 
-    public UnWatchedMovieFilter(User user) {
+    public UnWatchedMovieFilter(final User user) {
         watched = user.getMoviesRated();
     }
 }

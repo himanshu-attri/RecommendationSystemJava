@@ -14,7 +14,7 @@ import org.recommendation.model.Movie;
 import org.recommendation.model.User;
 
 public class RecommenderSystem {
-    public static void printRecommendationForUser(String userId) {
+    public static void printRecommendationForUser(final String userId) {
 
         System.out.println("Starting recommendation process for user : "+userId);
 
@@ -31,7 +31,7 @@ public class RecommenderSystem {
         System.out.println(yearBestMovie.getId()+" " +yearBestMovie.getTitle()+" "+ yearBestMovie.getYear());
     }
 
-    private static void initializer(DataInitializer dataInitializer,String filePath){
+    private static void initializer(final DataInitializer dataInitializer,final String filePath){
         BufferedReader br = dataInitializer.dataReader(filePath);
         Map<String,String[]> data = dataInitializer.readAndCleanData(br);
         XSSFWorkbook workbook = new XSSFWorkbook();

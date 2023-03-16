@@ -22,7 +22,7 @@ public class Movie {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(final String id) {
         this.id = id;
     }
 
@@ -30,7 +30,7 @@ public class Movie {
         return title;
     }
 
-    public void setTitle(String title) {
+    public void setTitle(final String title) {
         this.title = title;
     }
 
@@ -38,7 +38,7 @@ public class Movie {
         return year;
     }
 
-    public void setYear(String year) {
+    public void setYear(final String year) {
         this.year = year;
     }
 
@@ -46,7 +46,7 @@ public class Movie {
         return genres;
     }
 
-    public void setGenres(List<String> genres) {
+    public void setGenres(final List<String> genres) {
         this.genres = genres;
     }
 

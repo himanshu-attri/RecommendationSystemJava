@@ -20,7 +20,7 @@ public class UserDataInitilizer extends DataInitializer{
     public static final String ratingFilePath = "src/main/java/org/recommendation/data/raw/ratings.csv";
 
     @Override
-    public Map<String, String[]> readAndCleanData(BufferedReader br) {
+    public Map<String, String[]> readAndCleanData(final BufferedReader br) {
         Map<String,String[]> dataStore = new TreeMap<>();
         String line;
         try {
@@ -47,7 +47,7 @@ public class UserDataInitilizer extends DataInitializer{
         }
         return dataStore;
     }
-    private void populateUserData(String [] filteredData) {
+    private void populateUserData(final String [] filteredData) {
         String userId = filteredData[0];
         String movieId = filteredData[1];
         Double rating = Double.parseDouble(filteredData[2]);
@@ -59,7 +59,7 @@ public class UserDataInitilizer extends DataInitializer{
 
 
         @Override
-    public void writeData(XSSFWorkbook workbook, Map<String, String[]> dataStore) {
+    public void writeData(final XSSFWorkbook workbook, final Map<String, String[]> dataStore) {
         int rownum = 0;
         XSSFSheet sheet = workbook.createSheet("ratings");
         System.out.println("Total Items received for writing in rating.xlxs: "+dataStore.size());

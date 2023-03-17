@@ -28,7 +28,6 @@ public class MovieDataInitializer extends DataInitializer{
                 int counter=0;
                 for(int i=0;i<data.length;i++){
                     if(data[i].equals("")){
-                        logger.warn("Empty cell identified in movie data");
                         continue;
                     } else if(i==1){
                         int index = data[i].indexOf('(');

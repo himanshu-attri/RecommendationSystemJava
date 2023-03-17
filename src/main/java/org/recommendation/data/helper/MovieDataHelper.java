@@ -9,10 +9,11 @@ import java.util.HashMap;
 
 public class MovieDataHelper {
     public static HashMap<String, Movie> movieMap = new HashMap<>();
-    public static ArrayList<Movie> filterBy(final Filter f,final User user) {
+
+    public static ArrayList<Movie> filterBy(final Filter f, final User user) {
         ArrayList<Movie> list = new ArrayList<Movie>();
         for (String movieId : movieMap.keySet()) {
-            if (f.satisfy(movieId,user)) {
+            if (f.satisfy(movieId, user)) {
                 list.add(movieMap.get(movieId));
             }
         }

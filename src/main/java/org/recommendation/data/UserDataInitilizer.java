@@ -17,51 +17,53 @@ import java.util.TreeMap;
 
 import static org.recommendation.data.helper.UserDataHelper.userMap;
 
-public class UserDataInitilizer extends DataInitializer{
+public class UserDataInitilizer extends DataInitializer {
     private final Logger logger = new SoutLogger();
+
     @Override
     public Map<String, String[]> readAndCleanData(final BufferedReader br) {
-        Map<String,String[]> dataStore = new TreeMap<>();
+        Map<String, String[]> dataStore = new TreeMap<>();
         String line;
         try {
-            Integer counter=0;
-            while ((line = br.readLine()) != null){
+            Integer counter = 0;
+            while ((line = br.readLine()) != null) {
                 String[] data = line.split("\\s+");
                 int totalItems = data.length;
-                if(totalItems>1){
-                    dataStore.put(counter.toString(),data);
+                if (totalItems > 1) {
+                    dataStore.put(counter.toString(), data);
                     populateUserData(data);
                 }
                 counter++;
             }
-        }catch (IOException ioException){
-            logger.error("UserDataInitilizer - readAndCleanData",ioException);
+        } catch (IOException ioException) {
+            logger.error("UserDataInitilizer - readAndCleanData", ioException);
         }
         return dataStore;
     }
-    private void populateUserData(final String [] filteredData) {
+
+    private void populateUserData(final String[] filteredData) {
         String userId = filteredData[0];
         String movieId = filteredData[1];
         Double rating = Double.parseDouble(filteredData[2]);
-        if (!userMap.containsKey(userId)){
+        if (!userMap.containsKey(userId)) {
             userMap.put(userId, new User(userId));
         }
         userMap.get(userId).addRating(movieId, rating);
     }
 
 
-        @Override
+    @Override
     public void writeData(final XSSFWorkbook workbook, final Map<String, String[]> dataStore) {
         int rownum = 0;
         XSSFSheet sheet = workbook.createSheet("ratings");
-        logger.info("Total Items received for writing in rating.xlxs: "+dataStore.size());
-        for (String key:dataStore.keySet()){
+        logger.info("Total Items received for writing in rating.xlxs: " + dataStore.size());
+        for (String key : dataStore.keySet()) {
             Row row = sheet.createRow(rownum++);
             String[] objArr = dataStore.get(key);
             Cell cell1 = row.createCell(0);
             int cellnum = 1;
             cell1.setCellValue(key);
-            for(String obj: objArr){
+            for (String obj : objArr) {
                 Cell cell = row.createCell(cellnum++);
                 cell.setCellValue(obj);
             }
@@ -72,7 +74,7 @@ public class UserDataInitilizer extends DataInitializer{
             out.close();
             logger.info("ratings.csv written successfully on disk.");
         } catch (Exception e) {
-            logger.error("UserDataInitilizer- writeData",e);
+            logger.error("UserDataInitilizer- writeData", e);
         }
     }
 }

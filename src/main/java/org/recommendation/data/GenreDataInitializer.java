@@ -9,21 +9,22 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class GenreDataInitializer extends DataInitializer{
-    public static HashMap<String,String>GenereMap = new HashMap<>();
+public class GenreDataInitializer extends DataInitializer {
+    public static HashMap<String, String> GenereMap = new HashMap<>();
     private Logger logger = new SoutLogger();
+
     @Override
     public Map<String, String[]> readAndCleanData(final BufferedReader br) {
         String line;
         try {
-            while ((line = br.readLine()) != null){
+            while ((line = br.readLine()) != null) {
                 String[] data = line.split("\\|");
-                if(data.length>1){
-                    GenereMap.put(data[1],data[0]);
+                if (data.length > 1) {
+                    GenereMap.put(data[1], data[0]);
                 }
             }
-        }catch (IOException ioException){
-            logger.error("GenreDataInitializer readAndCleanData()",ioException);
+        } catch (IOException ioException) {
+            logger.error("GenreDataInitializer readAndCleanData()", ioException);
         }
         return null;
     }

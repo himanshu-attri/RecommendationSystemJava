@@ -16,8 +16,6 @@ public class Movie {
     }
 
 
-
-
     public String getId() {
         return id;
     }
@@ -52,6 +50,6 @@ public class Movie {
 
     @Override
     public String toString() {
-        return "Movie id: "+this.id+" title: "+this.title+" year: "+this.year+" genres: "+this.genres.toString();
+        return "Movie id: " + this.id + " title: " + this.title + " year: " + this.year + " genres: " + this.genres.toString();
     }
 }

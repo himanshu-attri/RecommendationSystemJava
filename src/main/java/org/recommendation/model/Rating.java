@@ -1,20 +1,23 @@
 package org.recommendation.model;
 
-public class Rating extends BaseModel{
+public class Rating extends BaseModel {
     private String movieId;
     private double ratingValue;
     private Long timestamp;
+
     public Rating(final String userId, final String movieId, final double ratingValue, final Long timestamp) {
         super(userId);
         this.movieId = movieId;
         this.ratingValue = ratingValue;
         this.timestamp = timestamp;
     }
+
     public Rating(final String userId, final String movieId, final double ratingValue) {
         super(userId);
         this.movieId = movieId;
         this.ratingValue = ratingValue;
     }
+
     public String getMovieId() {
         return movieId;
     }

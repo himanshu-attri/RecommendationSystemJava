@@ -1,6 +1,6 @@
 package org.recommendation.model;
 
-public class Rating extends BaseModel {
+public class Rating extends BaseModel implements Comparable<Rating> {
     private String movieId;
     private double ratingValue;
     private Long timestamp;
@@ -50,5 +50,12 @@ public class Rating extends BaseModel {
                 ", ratingValue=" + this.ratingValue +
                 ", timestamp=" + this.timestamp +
                 '}';
+    }
+    @Override
+    public int compareTo(Rating o) {
+        double delta = ratingValue - o.ratingValue;
+        if (delta > 0) return 1;
+        else if (delta < 0) return -1;
+        else return 0;
     }
 }

@@ -7,6 +7,6 @@ import java.util.ArrayList;
 public class UnWatchedMovieFilter implements Filter {
     @Override
     public boolean satisfy(final String movieId, final User user) {
-        return user.checkIfMovieRatedByUser(movieId);
+        return !user.checkIfMovieRatedByUser(movieId);
     }
 }

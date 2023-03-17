@@ -1,8 +1,11 @@
 package org.recommendation.service;
 
+import org.recommendation.data.helper.MovieDataHelper;
+import org.recommendation.data.helper.UserDataHelper;
 import org.recommendation.log.Logger;
 import org.recommendation.log.SoutLogger;
 import org.recommendation.model.Movie;
+import org.recommendation.model.Rating;
 import org.recommendation.model.User;
 
 import java.util.ArrayList;
@@ -33,7 +36,7 @@ public class ClientQueryHelper {
         return getMaxRatedMovie();
     }
 
-    public Movie getMaxRatedMovie() {
+    private Movie getMaxRatedMovie() {
         for (User user : userMap.values()) {
             for (Movie movie : queryReelatedMovies) {
                 if (user.getMovieRatingForUser(movie.getId()) != -1) {
@@ -54,5 +57,24 @@ public class ClientQueryHelper {
         }
         return movieMap.get(maxRatedMovieId);
 
+    }
+    public void printTop5RecommendationForUser(final String userId) {
+        User newUser = UserDataHelper.getUser(userId);
+        UnWatchedMovieFilter filter = new UnWatchedMovieFilter();
+        UserSimilarityRating userSimilarityRating = new UserSimilarityRating(userId, 50, 5, filter);
+        List<Rating> userRec = userSimilarityRating.getSimilarRatings();
+        System.out.println("========== Final Result ==============");
+        int counter = 0;
+        for (Rating rating : userRec) {
+            if (newUser.getMoviesRated().contains(rating.getMovieId())) {
+                System.out.println("Mismatch found: " + rating.getMovieId());
+            } else {
+                logger.info(MovieDataHelper.movieMap.get(rating.getMovieId()).toString());
+                counter++;
+            }
+
+            if (counter >= 5)
+                break;
+        }
     }
 }

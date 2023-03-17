@@ -3,6 +3,7 @@ package org.recommendation.service;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.BufferedReader;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Scanner;
@@ -11,9 +12,13 @@ import org.recommendation.data.DataInitializer;
 import org.recommendation.data.MovieDataInitializer;
 import org.recommendation.data.UserDataInitilizer;
 import org.recommendation.data.GenreDataInitializer;
+import org.recommendation.data.helper.MovieDataHelper;
+import org.recommendation.data.helper.UserDataHelper;
 import org.recommendation.log.Logger;
 import org.recommendation.log.SoutLogger;
 import org.recommendation.model.Movie;
+import org.recommendation.model.Rating;
+import org.recommendation.model.User;
 
 public class RecommenderSystem {
     private static final String MOVIEFILEPATH = "src/main/java/org/recommendation/data/raw/movie.csv";
@@ -34,7 +39,7 @@ public class RecommenderSystem {
         initializer(dataInitializer, RATINGFILEPATH);
         ClientQueryHelper clientQueryHelper = new ClientQueryHelper();
         Movie result = null;
-        String input;
+        String input = userInput;
         switch (userInput) {
             case "1":
                 logger.info("Enter Genre");
@@ -49,6 +54,9 @@ public class RecommenderSystem {
             case "3":
                 break;
             default:
+                logger.info("Processing userid for top5 recommendation");
+                clientQueryHelper.printTop5RecommendationForUser(input);
+
 
         }
         if (Objects.nonNull(result))

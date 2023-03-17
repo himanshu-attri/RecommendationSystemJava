@@ -6,7 +6,7 @@ import java.util.HashMap;
 import static java.util.stream.Collectors.toCollection;
 
 public class User extends BaseModel{
-    private HashMap<String, Rating> movieMap; // it will store all movies rate by user with along with rating
+    private final HashMap<String, Rating> movieMap; // it will store all movies rate by user with along with rating
     public User(final String userId){
         super(userId);
         movieMap = new HashMap<>();
@@ -16,6 +16,9 @@ public class User extends BaseModel{
     }
     public ArrayList<String> getMoviesRated(){
         return movieMap.keySet().stream().collect(toCollection(ArrayList::new));
+    }
+    public boolean checkIfMovieRatedByUser(String movieId){
+        return movieMap.containsKey(movieId);
     }
     public int numOfMoviesRated(){
         return movieMap.size();

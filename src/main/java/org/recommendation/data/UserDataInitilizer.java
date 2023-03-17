@@ -4,7 +4,8 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.recommendation.data.helper.UserDataHelper;
+import org.recommendation.log.Logger;
+import org.recommendation.log.SoutLogger;
 import org.recommendation.model.User;
 
 import java.io.BufferedReader;
@@ -17,8 +18,7 @@ import java.util.TreeMap;
 import static org.recommendation.data.helper.UserDataHelper.userMap;
 
 public class UserDataInitilizer extends DataInitializer{
-    public static final String ratingFilePath = "src/main/java/org/recommendation/data/raw/ratings.csv";
-
+    private final Logger logger = new SoutLogger();
     @Override
     public Map<String, String[]> readAndCleanData(final BufferedReader br) {
         Map<String,String[]> dataStore = new TreeMap<>();
@@ -27,23 +27,15 @@ public class UserDataInitilizer extends DataInitializer{
             Integer counter=0;
             while ((line = br.readLine()) != null){
                 String[] data = line.split("\\s+");
-//                for(String item:data)
-//                    System.out.print(item);
                 int totalItems = data.length;
                 if(totalItems>1){
                     dataStore.put(counter.toString(),data);
                     populateUserData(data);
                 }
-//                String[] objects = dataStore.get(counter.toString());
-//                System.out.println();
-//                for(String object: objects)
-//                    System.out.print(object+ " ");
-//                System.out.println();
-
                 counter++;
             }
         }catch (IOException ioException){
-            System.out.println("Exception while cleaning data: "+ ioException.toString());
+            logger.error("UserDataInitilizer - readAndCleanData",ioException);
         }
         return dataStore;
     }
@@ -62,7 +54,7 @@ public class UserDataInitilizer extends DataInitializer{
     public void writeData(final XSSFWorkbook workbook, final Map<String, String[]> dataStore) {
         int rownum = 0;
         XSSFSheet sheet = workbook.createSheet("ratings");
-        System.out.println("Total Items received for writing in rating.xlxs: "+dataStore.size());
+        logger.info("Total Items received for writing in rating.xlxs: "+dataStore.size());
         for (String key:dataStore.keySet()){
             Row row = sheet.createRow(rownum++);
             String[] objArr = dataStore.get(key);
@@ -78,9 +70,9 @@ public class UserDataInitilizer extends DataInitializer{
             FileOutputStream out = new FileOutputStream(new File("src/main/java/org/recommendation/data/processed/ratings.xlsx"));
             workbook.write(out);
             out.close();
-            System.out.println("ratings.csv written successfully on disk.");
+            logger.info("ratings.csv written successfully on disk.");
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error("UserDataInitilizer- writeData",e);
         }
     }
 }

@@ -39,4 +39,13 @@ public class Rating extends BaseModel{
         this.timestamp = timestamp;
     }
 
+    @Override
+    public String toString() {
+        return "Rating{" +
+                "UserId='" + super.getUserId() + '\'' +
+                "movieId='" + this.movieId + '\'' +
+                ", ratingValue=" + this.ratingValue +
+                ", timestamp=" + this.timestamp +
+                '}';
+    }
 }

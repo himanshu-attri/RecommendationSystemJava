@@ -10,25 +10,33 @@ import org.recommendation.data.UserDataInitilizer;
 import org.recommendation.data.GenreDataInitializer;
 import org.recommendation.data.helper.MovieDataHelper;
 import org.recommendation.data.helper.UserDataHelper;
+import org.recommendation.log.Logger;
+import org.recommendation.log.SoutLogger;
 import org.recommendation.model.Movie;
 import org.recommendation.model.User;
 
 public class RecommenderSystem {
-    public static void printRecommendationForUser(final String userId) {
+    private static final String MOVIEFILEPATH = "src/main/java/org/recommendation/data/raw/movie.csv";
+    private static final String GENREFILEPATH = "src/main/java/org/recommendation/data/raw/genre.csv";
+    public static final String RATINGFILEPATH = "src/main/java/org/recommendation/data/raw/ratings.csv";
 
-        System.out.println("Starting recommendation process for user : "+userId);
+
+
+    public static void printRecommendationForUser(final String userId) {
+        Logger logger = new SoutLogger();
+        logger.info("Starting recommendation process for user : "+userId);
 
         DataInitializer dataInitializer ;
         dataInitializer = new GenreDataInitializer();
-        initializer(dataInitializer,GenreDataInitializer.genreFilePath);
+        initializer(dataInitializer,GENREFILEPATH);
         dataInitializer = new MovieDataInitializer();
-        initializer(dataInitializer,MovieDataInitializer.movieFilePath);
+        initializer(dataInitializer,MOVIEFILEPATH);
         dataInitializer = new UserDataInitilizer();
-        initializer(dataInitializer, UserDataInitilizer.ratingFilePath);
+        initializer(dataInitializer, RATINGFILEPATH);
         ClientQueryHelper clientQueryHelper = new ClientQueryHelper();
 //        Movie movie= clientQueryHelper.getTopMovieByGenre("Action");
         Movie yearBestMovie = clientQueryHelper.getTopRatedMovieByYear("1990");
-        System.out.println(yearBestMovie.getId()+" " +yearBestMovie.getTitle()+" "+ yearBestMovie.getYear());
+        logger.warn("Year Best Movie "+yearBestMovie.toString());
     }
 
     private static void initializer(final DataInitializer dataInitializer,final String filePath){

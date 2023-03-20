@@ -2,7 +2,6 @@ package org.recommendation.service;
 
 import org.recommendation.model.User;
 
-import java.util.ArrayList;
 
 public class UnWatchedMovieFilter implements Filter {
     @Override

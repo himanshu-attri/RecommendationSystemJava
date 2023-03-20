@@ -1,4 +1,4 @@
-package org.recommendation;
+package org.recommendation.service;
 
 import org.recommendation.service.RecommenderSystem;
 
@@ -25,6 +25,6 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
 //        userInput = "880";
-        RecommenderSystem.printRecommendationForUser(userInput);
+        RecommenderSystem.getRecommenderSystem().printRecommendationForUser(userInput);
     }
 }

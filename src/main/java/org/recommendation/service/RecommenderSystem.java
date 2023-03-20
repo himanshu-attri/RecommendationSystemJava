@@ -21,12 +21,21 @@ import org.recommendation.model.Rating;
 import org.recommendation.model.User;
 
 public class RecommenderSystem {
+    // using singleton design pattern
+    private static RecommenderSystem recommenderSystem;
+    private RecommenderSystem(){}
     private static final String MOVIEFILEPATH = "src/main/java/org/recommendation/data/raw/movie.csv";
     private static final String GENREFILEPATH = "src/main/java/org/recommendation/data/raw/genre.csv";
-    public static final String RATINGFILEPATH = "src/main/java/org/recommendation/data/raw/ratings.csv";
+    private static final String RATINGFILEPATH = "src/main/java/org/recommendation/data/raw/ratings.csv";
 
 
-    public static void printRecommendationForUser(final String userInput) {
+    public static RecommenderSystem getRecommenderSystem(){
+        if(Objects.isNull(recommenderSystem)){
+            recommenderSystem = new RecommenderSystem();
+        }
+        return recommenderSystem;
+    }
+    protected void printRecommendationForUser(final String userInput) {
         Logger logger = new SoutLogger();
         logger.info("Hold on for a while, starting recommendation process for your inputs");
         Scanner scanner = new Scanner(System.in);

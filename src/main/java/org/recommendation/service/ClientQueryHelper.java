@@ -22,7 +22,7 @@ public class ClientQueryHelper {
     private HashMap<String, Integer> movieRaters = new HashMap<>();
 
     public Movie getTopMovieByGenre(final String genre) {
-        queryReelatedMovies = movieMap.values().stream().filter(movie -> movie.getGenres().contains(genre)).collect(Collectors.toList());
+        queryReelatedMovies = movieMap.values().stream().filter(movie -> movie.getGenres().contains(Genre.valueOfLabel(genre))).collect(Collectors.toList());
         if (queryReelatedMovies.isEmpty()) {
             logger.warn("No such movie exist in dataset");
             return null;
@@ -120,6 +120,10 @@ public class ClientQueryHelper {
 
     public void printTop5RecommendationForUser(final String userId) {
         User newUser = UserDataHelper.getUser(userId);
+        if (Objects.isNull(newUser)){
+            logger.warn("User does not exist in user database, please check userId");
+            return;
+        }
         UnWatchedMovieFilter filter = new UnWatchedMovieFilter();
         UserSimilarityRating userSimilarityRating = new UserSimilarityRating(userId, 50, 5, filter);
         List<Rating> userRec = userSimilarityRating.getSimilarRatings();

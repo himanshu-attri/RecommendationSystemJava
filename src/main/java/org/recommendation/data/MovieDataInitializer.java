@@ -7,6 +7,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.recommendation.data.helper.MovieDataHelper;
 import org.recommendation.log.Logger;
 import org.recommendation.log.SoutLogger;
+import org.recommendation.model.Genre;
 import org.recommendation.model.Movie;
 
 import java.io.BufferedReader;
@@ -58,10 +59,10 @@ public class MovieDataInitializer extends DataInitializer{
         String movieId = filteredData[0];
         String title = filteredData[1];
         String year = filteredData[2];
-        List<String> genres = new ArrayList<>();
+        List<Genre> genres = new ArrayList<>();
         for (int i=5;i<= Math.min(23,filteredData.length);i++){
             if(Objects.nonNull(filteredData[i]) &&!filteredData[i].isEmpty()  &&Integer.parseInt(filteredData[i])==1)
-                genres.add(GenreDataInitializer.GenereMap.get(Integer.toString(i-5)));
+                genres.add(Genre.valueOfLabel(GenreDataInitializer.GenereMap.get(Integer.toString(i-5))));
         }
         MovieDataHelper.movieMap.put(movieId, new Movie(movieId,title,year,genres));
     }

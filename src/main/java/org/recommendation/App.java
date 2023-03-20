@@ -9,7 +9,6 @@ import java.util.Scanner;
  */
 public class App {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
         System.out.println("========================================");
         System.out.println("Stating our movie recommendation system");
         System.out.println("========================================");

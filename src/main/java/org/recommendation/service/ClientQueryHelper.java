@@ -4,13 +4,12 @@ import org.recommendation.data.helper.MovieDataHelper;
 import org.recommendation.data.helper.UserDataHelper;
 import org.recommendation.log.Logger;
 import org.recommendation.log.SoutLogger;
+import org.recommendation.model.Genre;
 import org.recommendation.model.Movie;
 import org.recommendation.model.Rating;
 import org.recommendation.model.User;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import static org.recommendation.data.helper.MovieDataHelper.movieMap;
@@ -29,6 +28,44 @@ public class ClientQueryHelper {
             return null;
         }
         return getMaxRatedMovie();
+    }
+
+    public Movie getTopMovieByYearAndGenre(final String genre, final String year) {
+        logger.info("running getTopMovieByYearAndGenre with input "+genre+" "+year);
+        queryReelatedMovies = movieMap.values().stream().filter(movie -> movie.getGenres().contains(Genre.valueOfLabel(genre)) && movie.getYear().equals(year)).
+                collect(Collectors.toList());
+        return getMaxRatedMovie();
+    }
+
+    public Movie getMostWatchedMovie() {
+        HashMap<String, Integer> movieToUserCount = new HashMap<>();
+        for (User user : userMap.values()) {
+            for (String movie : user.getMoviesRated()) {
+                movieToUserCount.merge(movie, 1, Integer::sum);
+            }
+        }
+        String mostWatchedMovieId = Collections.max(movieToUserCount.entrySet(), HashMap.Entry.comparingByValue()).getKey();
+        logger.info(movieMap.get(mostWatchedMovieId).toString());
+        return movieMap.get(mostWatchedMovieId);
+    }
+
+    public String getMostwatchedGenre() {
+        HashMap<String, Integer> movieToGenreCount = new HashMap<>();
+        for (User user : userMap.values()) {
+            for (String movie : user.getMoviesRated()) {
+                for (Genre genre : movieMap.get(movie).getGenres()) {
+                    movieToGenreCount.merge(genre.label, 1, Integer::sum);
+                }
+            }
+        }
+        String mostWatchedGenre = Collections.max(movieToGenreCount.entrySet(), Map.Entry.comparingByValue()).getKey();
+        logger.info(movieToGenreCount.entrySet().toString());
+        return mostWatchedGenre;
+    }
+
+    public String getMostActiveUser() {
+        Optional<User> user = userMap.values().stream().sorted(Comparator.comparingInt(User::numOfMoviesRated).reversed()).findFirst();
+        return user.get().getUserId();
     }
 
     public Movie getTopRatedMovieByYear(final String year) {
@@ -58,6 +95,7 @@ public class ClientQueryHelper {
         return movieMap.get(maxRatedMovieId);
 
     }
+
     public void printTop5RecommendationForUser(final String userId) {
         User newUser = UserDataHelper.getUser(userId);
         UnWatchedMovieFilter filter = new UnWatchedMovieFilter();

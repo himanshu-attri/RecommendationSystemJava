@@ -52,6 +52,25 @@ public class RecommenderSystem {
                 result = clientQueryHelper.getTopRatedMovieByYear(input);
                 break;
             case "3":
+                logger.info("Enter genre and year");
+                input = scanner.nextLine();
+                String[] inputs = input.split("\\s+");
+                result = clientQueryHelper.getTopMovieByYearAndGenre(inputs[0],inputs[1]);
+                break;
+            case "4":
+                logger.info("Most watched Movie");
+                result = clientQueryHelper.getMostWatchedMovie();
+                break;
+            case "5":
+                logger.info("Most watched genre");
+                logger.info(clientQueryHelper.getMostwatchedGenre());
+                break;
+            case "6":
+                logger.info("Highest Rated Genre");
+                break;
+            case "7":
+                logger.info("Most active user");
+                logger.info(clientQueryHelper.getMostActiveUser());
                 break;
             default:
                 logger.info("Processing userid for top5 recommendation");

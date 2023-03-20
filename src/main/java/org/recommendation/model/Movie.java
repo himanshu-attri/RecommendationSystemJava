@@ -6,9 +6,9 @@ public class Movie {
     private String id;
     private String title;
     private String year;
-    private List<String> genres;
+    private List<Genre> genres;
 
-    public Movie(final String id, final String title, final String year, final List<String> genres) {
+    public Movie(final String id, final String title, final String year, final List<Genre> genres) {
         this.id = id;
         this.title = title;
         this.year = year;
@@ -40,11 +40,11 @@ public class Movie {
         this.year = year;
     }
 
-    public List<String> getGenres() {
+    public List<Genre> getGenres() {
         return genres;
     }
 
-    public void setGenres(final List<String> genres) {
+    public void setGenres(final List<Genre> genres) {
         this.genres = genres;
     }
 

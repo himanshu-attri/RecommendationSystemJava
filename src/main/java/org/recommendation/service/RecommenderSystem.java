@@ -67,6 +67,7 @@ public class RecommenderSystem {
                 break;
             case "6":
                 logger.info("Highest Rated Genre");
+                logger.info(clientQueryHelper.getHighestRatedGenre());
                 break;
             case "7":
                 logger.info("Most active user");

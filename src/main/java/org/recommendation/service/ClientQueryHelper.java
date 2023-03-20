@@ -36,6 +36,28 @@ public class ClientQueryHelper {
                 collect(Collectors.toList());
         return getMaxRatedMovie();
     }
+    public String getHighestRatedGenre(){
+        HashMap<String, Double> genreScore = new HashMap<>();
+        HashMap<String, Integer> genreRaters = new HashMap<>();
+        for(User user:userMap.values()){
+            for(String movie:user.getMoviesRated()){
+                for (Genre genre:movieMap.get(movie).getGenres()){
+                    genreScore.merge(genre.label,user.getMovieRatingForUser(movie),Double::sum);
+                    genreRaters.merge(genre.label,1,Integer::sum);
+                }
+            }
+        }
+        Double maxRating = 0.0;
+        String maxRatedGenre = null;
+        for (String genre : genreScore.keySet()) {
+            Double rating = genreScore.get(genre) / genreRaters.get(genre);
+            if (rating > maxRating) {
+                maxRating = rating;
+                maxRatedGenre = genre;
+            }
+        }
+        return maxRatedGenre;
+    }
 
     public Movie getMostWatchedMovie() {
         HashMap<String, Integer> movieToUserCount = new HashMap<>();

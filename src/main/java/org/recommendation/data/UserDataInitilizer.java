@@ -35,8 +35,8 @@ public class UserDataInitilizer extends DataInitializer {
                 }
                 counter++;
             }
-        } catch (IOException ioException) {
-            logger.error("UserDataInitilizer - readAndCleanData", ioException);
+        } catch (Exception exception) {
+            logger.error("UserDataInitilizer - readAndCleanData", exception);
         }
         return dataStore;
     }
@@ -55,20 +55,20 @@ public class UserDataInitilizer extends DataInitializer {
     @Override
     public void writeData(final XSSFWorkbook workbook, final Map<String, String[]> dataStore) {
         int rownum = 0;
-        XSSFSheet sheet = workbook.createSheet("ratings");
-        logger.info("Total Items received for writing in rating.xlxs: " + dataStore.size());
-        for (String key : dataStore.keySet()) {
-            Row row = sheet.createRow(rownum++);
-            String[] objArr = dataStore.get(key);
-            Cell cell1 = row.createCell(0);
-            int cellnum = 1;
-            cell1.setCellValue(key);
-            for (String obj : objArr) {
-                Cell cell = row.createCell(cellnum++);
-                cell.setCellValue(obj);
-            }
-        }
         try {
+            XSSFSheet sheet = workbook.createSheet("ratings");
+            logger.info("Total Items received for writing in rating.xlxs: " + dataStore.size());
+            for (String key : dataStore.keySet()) {
+                Row row = sheet.createRow(rownum++);
+                String[] objArr = dataStore.get(key);
+                Cell cell1 = row.createCell(0);
+                int cellnum = 1;
+                cell1.setCellValue(key);
+                for (String obj : objArr) {
+                    Cell cell = row.createCell(cellnum++);
+                    cell.setCellValue(obj);
+                }
+            }
             FileOutputStream out = new FileOutputStream(new File("src/main/java/org/recommendation/data/processed/ratings.xlsx"));
             workbook.write(out);
             out.close();

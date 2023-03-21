@@ -23,8 +23,8 @@ public class GenreDataInitializer extends DataInitializer {
                     GenereMap.put(data[1], data[0]);
                 }
             }
-        } catch (IOException ioException) {
-            logger.error("GenreDataInitializer readAndCleanData()", ioException);
+        } catch (Exception exception) {
+            logger.error("GenreDataInitializer readAndCleanData()", exception);
         }
         return null;
     }

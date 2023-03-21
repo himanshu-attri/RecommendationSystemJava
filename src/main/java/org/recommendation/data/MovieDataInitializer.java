@@ -17,7 +17,7 @@ import java.util.*;
 
 public class MovieDataInitializer extends DataInitializer{
 
-    private Logger logger = new SoutLogger();
+    private final Logger logger = new SoutLogger();
     @Override
     public Map<String, String[]> readAndCleanData(final BufferedReader br) {
         Map<String,String[]> dataStore = new TreeMap<>();
@@ -46,8 +46,8 @@ public class MovieDataInitializer extends DataInitializer{
                     populateMovieData(filteredData);
                 }
             }
-        }catch (IOException ioException){
-            logger.error("MovieDataInitializer readAndCleanData()",ioException);
+        }catch (Exception exception){
+            logger.error("MovieDataInitializer readAndCleanData()",exception);
         }
         return dataStore;
     }
@@ -70,19 +70,19 @@ public class MovieDataInitializer extends DataInitializer{
     @Override
     public void writeData(final XSSFWorkbook workbook, final Map<String, String[]> dataStore) {
         int rownum = 0;
-        XSSFSheet sheet = workbook.createSheet("movie");
-        for (String key:dataStore.keySet()){
-            Row row = sheet.createRow(rownum++);
-            String[] objArr = dataStore.get(key);
-            Cell cell1 = row.createCell(0);
-            int cellnum = 1;
-            cell1.setCellValue(key);
-            for(String obj: objArr){
-                Cell cell = row.createCell(cellnum++);
-                cell.setCellValue(obj);
-            }
-        }
         try {
+            XSSFSheet sheet = workbook.createSheet("movie");
+            for (String key:dataStore.keySet()){
+                Row row = sheet.createRow(rownum++);
+                String[] objArr = dataStore.get(key);
+                Cell cell1 = row.createCell(0);
+                int cellnum = 1;
+                cell1.setCellValue(key);
+                for(String obj: objArr){
+                    Cell cell = row.createCell(cellnum++);
+                    cell.setCellValue(obj);
+                }
+            }
             FileOutputStream out = new FileOutputStream("src/main/java/org/recommendation/data/processed/movie.xlsx",false);
             workbook.write(out);
             workbook.close();

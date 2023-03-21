@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import static org.recommendation.data.helper.UserDataHelper.userMap;
 
-public class UserFinderTopItems extends TopItemFinder {
+public class UserTopItemFinder extends TopItemFinder {
     //Top Active User
     @Override
     String getTopItem(String input) {

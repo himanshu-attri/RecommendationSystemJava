@@ -13,7 +13,7 @@ import java.util.Objects;
 import static org.recommendation.data.helper.MovieDataHelper.movieMap;
 import static org.recommendation.data.helper.UserDataHelper.userMap;
 
-public class MovieFinderTopItems extends TopItemFinder {
+public class MovieTopItemFinder extends TopItemFinder {
     //top watched movie
     @Override
     String getTopItem(String input) {

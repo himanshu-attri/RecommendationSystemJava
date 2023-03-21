@@ -51,13 +51,13 @@ public class MovieRecommenderSystem implements RecommenderSystem {
             case "1":
                 logger.info("Enter Genre");
                 input = scanner.nextLine();
-                topItemFinder = new GenreTopItemFinder();
+                topItemFinder = TopItemFinderFactory.getTopItemFinder(AppConstant.GENRE);
                 result = topItemFinder.getTopItem(input);
                 break;
             case "2":
                 logger.info("Enter Year");
                 input = scanner.nextLine();
-                topItemFinder = new YearTopItemFinder();
+                topItemFinder = TopItemFinderFactory.getTopItemFinder(AppConstant.YEAR);
                 result = topItemFinder.getTopItem(input);
                 break;
             case "3":
@@ -69,7 +69,7 @@ public class MovieRecommenderSystem implements RecommenderSystem {
                 break;
             case "4":
                 logger.info("Most watched Movie");
-                MovieFinderTopItems movieTopItems = new MovieFinderTopItems();
+                MovieTopItemFinder movieTopItems = new MovieTopItemFinder();
                 result = movieTopItems.getMostWatchedMovie();
                 break;
             case "5":
@@ -84,12 +84,12 @@ public class MovieRecommenderSystem implements RecommenderSystem {
                 break;
             case "7":
                 logger.info("Most active user");
-                topItemFinder = new UserFinderTopItems();
+                topItemFinder = TopItemFinderFactory.getTopItemFinder(AppConstant.USER);
                 logger.info(topItemFinder.getTopItem(null));
                 break;
             default:
                 logger.info("Processing userid for top5 recommendation");
-                MovieFinderTopItems movieTopItems2 = new MovieFinderTopItems();
+                MovieTopItemFinder movieTopItems2 = new MovieTopItemFinder();
                 movieTopItems2.printTop5RecommendationForUser(input);
 
 

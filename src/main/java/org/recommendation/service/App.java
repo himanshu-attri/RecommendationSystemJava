@@ -22,7 +22,6 @@ public class App {
                 "UserId for Top5 recommendation");
         Scanner scanner = new Scanner(System.in);
         String userInput = scanner.nextLine();
-//        userInput = "880";
         MovieRecommenderSystem.getRecommenderSystem().printRecommendations(userInput);
     }
 }

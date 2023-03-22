@@ -4,6 +4,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.recommendation.data.helper.UserDataHelper;
 import org.recommendation.log.Logger;
 import org.recommendation.log.SoutLogger;
 import org.recommendation.model.User;
@@ -11,14 +12,16 @@ import org.recommendation.model.User;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static org.recommendation.data.helper.UserDataHelper.userMap;
 
 public class UserDataInitilizer extends DataInitializer {
     private final Logger logger = new SoutLogger();
+    private Map<String, User> userMap = new HashMap<>();
+
 
     @Override
     public Map<String, String[]> readAndCleanData(final BufferedReader br) {
@@ -38,6 +41,7 @@ public class UserDataInitilizer extends DataInitializer {
         } catch (Exception exception) {
             logger.error("UserDataInitilizer - readAndCleanData", exception);
         }
+        UserDataHelper.userMap = Collections.unmodifiableMap(userMap);
         return dataStore;
     }
 

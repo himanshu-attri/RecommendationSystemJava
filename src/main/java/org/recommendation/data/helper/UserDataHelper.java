@@ -4,9 +4,10 @@ import org.recommendation.model.User;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class UserDataHelper {
-    public static HashMap<String, User> userMap = new HashMap<>();
+    public static Map<String, User> userMap = new HashMap<>();
 
     public static boolean checkUserInfo(final User user) {
         return userMap.containsKey(user.getUserId());

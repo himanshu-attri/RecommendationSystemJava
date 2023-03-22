@@ -13,7 +13,7 @@ import java.util.List;
 
 public class UserSimilarityRating extends SimilaratiyRating {
 
-    public UserSimilarityRating(final String id, final int neighborSize, final int minRater, Filter f) {
+    public UserSimilarityRating(final String id, final int neighborSize, final int minRater,final Filter f) {
         super(id, neighborSize, minRater, f);
     }
 

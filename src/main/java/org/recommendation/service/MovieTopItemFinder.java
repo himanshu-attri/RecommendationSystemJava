@@ -16,7 +16,7 @@ import static org.recommendation.data.helper.UserDataHelper.userMap;
 public class MovieTopItemFinder extends TopItemFinder {
     //top watched movie
     @Override
-    String getTopItem(String input) {
+    String getTopItem(final String input) {
         HashMap<String, Integer> movieToUserCount = new HashMap<>();
         for (User user : userMap.values()) {
             for (String movie : user.getMoviesRated()) {

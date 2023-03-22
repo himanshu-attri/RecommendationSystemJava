@@ -1,7 +1,7 @@
 package org.recommendation.service;
 
 public class TopItemFinderFactory {
-    public static TopItemFinder getTopItemFinder(String attribute) {
+    public static TopItemFinder getTopItemFinder(final String attribute) {
         if(AppConstant.GENRE.equals(attribute)){
             return new GenreTopItemFinder();
         }

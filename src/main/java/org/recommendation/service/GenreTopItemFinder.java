@@ -16,7 +16,7 @@ import static org.recommendation.data.helper.UserDataHelper.userMap;
 public class GenreTopItemFinder extends TopItemFinder {
     //most rated genre
     @Override
-    String getTopItem(String genre) {
+    String getTopItem(final String genre) {
         queryRelatedMovies = movieMap.values().stream().filter(movie -> movie.getGenres().contains(Genre.valueOfLabel(genre))).collect(Collectors.toList());
         if (queryRelatedMovies.isEmpty()) {
             logger.warn("No such movie exist in dataset");

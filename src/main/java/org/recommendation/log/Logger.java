@@ -1,8 +1,8 @@
 package org.recommendation.log;
 
 public interface Logger {
-    public void info(String info);
-    public void warn(String warning);
-    public void error(String context,Exception ex);
-    public void eror(String error);
+    public void info(final String info);
+    public void warn(final String warning);
+    public void error(final String context,Exception ex);
+    public void eror(final String error);
 }

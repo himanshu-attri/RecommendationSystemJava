@@ -14,7 +14,7 @@ public class MovieDataHelper {
 
     public static ArrayList<Movie> filterBy(final Filter f, final User user) {
         ArrayList<Movie> list = new ArrayList<Movie>();
-        for (String movieId : movieMap.keySet()) {
+        for (final String movieId : movieMap.keySet()) {
             if (f.satisfy(movieId, user)) {
                 list.add(movieMap.get(movieId));
             }

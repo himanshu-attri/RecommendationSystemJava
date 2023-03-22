@@ -18,6 +18,7 @@ import java.util.*;
 public class MovieDataInitializer extends DataInitializer{
 
     private final Logger logger = new SoutLogger();
+    private Map<String, Movie> movieMap = new HashMap<>();
     @Override
     public Map<String, String[]> readAndCleanData(final BufferedReader br) {
         Map<String,String[]> dataStore = new TreeMap<>();
@@ -49,6 +50,7 @@ public class MovieDataInitializer extends DataInitializer{
         }catch (Exception exception){
             logger.error("MovieDataInitializer readAndCleanData()",exception);
         }
+        MovieDataHelper.movieMap = Collections.unmodifiableMap(movieMap);
         return dataStore;
     }
     private void populateMovieData(final String [] filteredData){
@@ -64,7 +66,7 @@ public class MovieDataInitializer extends DataInitializer{
             if(Objects.nonNull(filteredData[i]) &&!filteredData[i].isEmpty()  &&Integer.parseInt(filteredData[i])==1)
                 genres.add(Genre.valueOfLabel(GenreDataInitializer.GenereMap.get(Integer.toString(i-5))));
         }
-        MovieDataHelper.movieMap.put(movieId, new Movie(movieId,title,year,genres));
+        movieMap.put(movieId, new Movie(movieId,title,year,genres));
     }
 
     @Override

@@ -35,7 +35,6 @@ public class MovieTopItemFinder extends TopItemFinder {
             }
         }
         String mostWatchedMovieId = Collections.max(movieToUserCount.entrySet(), HashMap.Entry.comparingByValue()).getKey();
-        logger.info(movieMap.get(mostWatchedMovieId).toString());
         return movieMap.get(mostWatchedMovieId).toString();
     }
 
